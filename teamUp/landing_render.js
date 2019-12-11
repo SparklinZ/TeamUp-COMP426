@@ -476,7 +476,7 @@ function renderGroupPage(groups) {
             <div class="form-row">
                 <div class="col form-group">
                     <label>Group Name</label>   
-                    <input type="text" class="form-control" name="groupName" value="Default">
+                    <input type="text" class="form-control" name="groupName" placeholder="Group Name">
                 </div>
                 <div class = "col form-group">
                     <label>Maximum Capacity</label>
@@ -994,6 +994,7 @@ async function handleSubmitGroup(event) {
         // rerender whole wallpage for now
         return handleRenderGroupPage();
     } else {
+        $("#errorMessage").empty();
         $("#errorMessage").append(`<span class="text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
     }
 }
@@ -1091,6 +1092,7 @@ async function handleSubmitGroup(event) {
             // rerender whole groupPage for now, maybe single call + replacewith 
             return handleRenderGroupPage();
         } else {
+            $("#errorMessage").empty();
             $("#errorMessage").append(`<span class="text-danger">You are already member of group ${studentGroupData.data.result.inGroup}.</span>`)
 
         }
