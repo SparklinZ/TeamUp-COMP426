@@ -1,5 +1,9 @@
 $(document).ready(async () => {
+    if(localStorage.getItem("jwt")){
+        handleRenderGroupPage();
+    } else {
     $('#homePage').append(renderHomePage());
+    }
     $('#content').on("click", "#login", handleRenderLogin);
     $('#signup').on("click", handleRenderSignUp);
     $('#navBar').on("click", "#wall", handleRenderWall);
@@ -18,8 +22,8 @@ $(document).ready(async () => {
     $('#content').on("click", "#joinGroupButton", handleJoinGroup);
     //$('#content').on("click", "#editGroup", handleEditGroup);
 
-    
-    
+
+
 
 
 })
@@ -476,7 +480,7 @@ function renderGroupPage(groups) {
             <div class="form-row">
                 <div class="col form-group">
                     <label>Group Name</label>   
-                    <input type="text" class="form-control" name="groupName" value="Default">
+                    <input type="text" class="form-control" name="groupName" placeholder="Group Name">
                 </div>
                 <div class = "col form-group">
                     <label>Maximum Capacity</label>
@@ -513,7 +517,6 @@ function renderGroupPage(groups) {
     let counter = 0;
     let row_counter = 1000;
     for (var i in groups) {
-        //console.log(counter);
         if (counter === 0) {
             $("#groups").append(`<div class="row" id = "${row_counter}">${renderGroupCard(groups[i], i)}</div>`);
             counter++;
@@ -543,11 +546,11 @@ function renderGroupPage(groups) {
 // group card
 function renderGroupCard(group, i) {
     let groupMembers = "";
-    let buttons ="";
+    let buttons = "";
     for (let i = 0; i < group.groupMembers.length; i++) {
         groupMembers = groupMembers.concat(`<li class="list-group-item">${group.groupMembers[i]}</li>`);
     }
-    if(i === localStorage.getItem("ownsGroup")){
+    if (i === localStorage.getItem("ownsGroup")) {
         buttons = `<div class="btn-group float-right" role="group" aria-label="Second group">
                     <button type="button" class="btn btn-danger" id="deleteGroup">Delete</button>
                     </div>
@@ -979,12 +982,10 @@ const setToken = (key, value) => {
 
 
 async function handleSubmitGroup(event) {
+    event.preventDefault();
     // get input from textarea to post it 
-    if (localStorage.getItem("ownsGroup")) {
-        $("#errorMessage").append(`<span class="text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
-    } else {
-
-        event.preventDefault();
+    let studentGroupData = await hasGroup();
+    if (studentGroupData.data.result.hasGroup === false) {
         const $form = $('#createGroupForm');
         const dataFromForm = $form.serializeArray().reduce((accumulator, x) => {
             accumulator[x.name] = x.value;
@@ -993,93 +994,144 @@ async function handleSubmitGroup(event) {
 
         // call postGroup function
         const postGroupResult = await postGroup(dataFromForm);
-        setToken("ownsGroup", postGroupResult.data.result.path.split(".")[1]); 
+        let newGroupId = postGroupResult.data.result.path.split(".")[1]
+        setToken("ownsGroup", newGroupId);
 
+        updateStudentsGroupInfo("hasGroup", true);
+        updateStudentsGroupInfo("ownsGroup", true);
+        updateStudentsGroupInfo("inGroup", newGroupId);
         // rerender whole wallpage for now
         return handleRenderGroupPage();
+    } else {
+        $("#errorMessage").empty();
+        $("#errorMessage").append(`<span class="text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
     }
 }
 
-async function handleDeleteGroup(event) {
-    event.preventDefault();
-    // call postGroup function
-    const postGroupResult = await deleteGroup(localStorage.getItem("ownsGroup"));
-    localStorage.removeItem("ownsGroup");
-    // rerender whole groupPage for now
-    return handleRenderGroupPage();
-}
+    async function handleDeleteGroup(event) {
+        event.preventDefault();
+        // call postGroup function
+        const postGroupResult = await deleteGroup(localStorage.getItem("ownsGroup"));
+        updateStudentsGroupInfo("hasGroup", false);
+        updateStudentsGroupInfo("inGroup", "");
+        updateStudentsGroupInfo("ownsGroup", false);
+
+        localStorage.removeItem("ownsGroup");
+        // rerender whole groupPage for now
+        return handleRenderGroupPage();
+    }
 
 
 
-async function getGroups() {
-    const result = await axios({
-        method: 'get',
-        headers: { Authorization: `Bearer ${getToken()}` },
-        url: 'http://localhost:3000/private/groups',
-    });
-    //console.log("Results from getGroups Call");
-    //console.log(result);
-    //console.log(result.data.result);
-    return result.data.result;
-};
+    async function getGroups() {
+        const result = await axios({
+            method: 'get',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: 'http://localhost:3000/private/groups',
+        });
+        //console.log("Results from getGroups Call");
+        //console.log(result);
+        //console.log(result.data.result);
+        return result.data.result;
+    };
 
 
-async function postGroup(data) {
-    const result = await axios({
-        method: 'post',
-        headers: { Authorization: `Bearer ${getToken()}` },
-        url: `http://localhost:3000/private/groups/${Date.now()}`,
-        data: {
+    async function postGroup(data) {
+        const result = await axios({
+            method: 'post',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: `http://localhost:3000/private/groups/${Date.now()}`,
             data: {
-                groupName: data.groupName,
-                groupMembers: [localStorage.getItem('name')],
-                groupOwner: localStorage.getItem('name'),
-                groupCapacity: data.maxCapacity
+                data: {
+                    groupName: data.groupName,
+                    groupMembers: [localStorage.getItem('name')],
+                    groupOwner: localStorage.getItem('name'),
+                    groupCapacity: data.maxCapacity
+                }
+            },
+        });
+        //console.log("Result from postGroup Call");
+        //console.log(result);
+        return result;
+    }
+
+
+    async function deleteGroup(id) {
+        const result = await axios({
+            method: 'delete',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: `http://localhost:3000/private/groups/${id}`,
+        });
+        return result;
+    };
+
+
+    async function updateGroupMembers(data, id) {
+        const result = await axios({
+            method: 'post',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: `http://localhost:3000/private/groups/${id}/groupMembers`,
+            data: {
+                data: [data],
+                type: "merge"
             }
-        },
-    });
-    //console.log("Result from postGroup Call");
-    //console.log(result);
-    return result;
-}
+        });
+        console.log("Result from updatingGroupMembers Call");
+        console.log(result);
+        return result;
+    }
 
 
-async function deleteGroup(id) {
-    const result = await axios({
-        method: 'delete',
-        headers: { Authorization: `Bearer ${getToken()}` },
-        url: `http://localhost:3000/private/groups/${id}`,
-    });
-    return result;
-};
+    async function handleJoinGroup(event) {
+        event.preventDefault();
+        // getGroupID
+        let studentGroupData = await hasGroup();
+        console.log("In JoinHandler")
+        console.log(studentGroupData);
+
+        if (studentGroupData.data.result.hasGroup === false) {
+            let groupCard = event.currentTarget.closest(".card");
+            let groupID = $(groupCard).attr('id');
+            // call update GroupMembers function
+            const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
+
+            updateStudentsGroupInfo("hasGroup", true);
+            updateStudentsGroupInfo("inGroup", groupID);
+
+            // rerender whole groupPage for now, maybe single call + replacewith 
+            return handleRenderGroupPage();
+        } else {
+            $("#errorMessage").empty();
+            $("#errorMessage").append(`<span class="text-danger">You are already member of group ${studentGroupData.data.result.inGroup}.</span>`)
+
+        }
+    }
 
 
-async function updateGroupMembers(data, id) {
-    const result = await axios({
-        method: 'post',
-        headers: { Authorization: `Bearer ${getToken()}` },
-        url: `http://localhost:3000/private/groups/${id}/groupMembers`,
-        data: {
-            data: [data],
-            type: "merge"
+    // use this function to determine whether student has group
+    async function hasGroup() {
+        const result = await axios({
+            method: 'get',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: `http://localhost:3000/private/users/${localStorage.getItem("name")}`,
+        });
+        console.log("Results from HasGroup Call");
+        console.log(result);
+        return result;
+    };
+
+
+    // use this function to change students group information
+    async function updateStudentsGroupInfo(attr, data) {
+        const result = await axios({
+            method: 'post',
+            headers: { Authorization: `Bearer ${getToken()}` },
+            url: `http://localhost:3000/private/users/${localStorage.getItem("name")}/${attr}`,
+            data: {
+                data: data
             }
-    });
-    console.log("Result from updatingGroupMembers Call");
-    console.log(result);
-    return result;
-}
-
-
-async function handleJoinGroup(event) {
-    event.preventDefault();
-    // getGroupID
-    let groupCard = event.currentTarget.closest(".card");
-    console.log(groupCard);
-    let groupID = $(groupCard).attr('id');
-
-    // call update GroupMembers function
-    const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
-
-    // rerender whole groupPage for now, maybe single call + replacewith 
-    return handleRenderGroupPage();
-}
+        });
+        console.log("Result from studentInfo Call");
+        console.log(result);
+        return result;
+    }

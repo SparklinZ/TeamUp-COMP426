@@ -18,7 +18,10 @@
       "year": "Junior",
       "bio": "I like pizza.",
       "major": "Computer Science",
-      "skills": "Java, Cloud Computing, Integrations, SAP"
+      "skills": "Java, Cloud Computing, Integrations, SAP",
+      "ownsGroup": false,
+      "hasGroup": true,
+      "inGroup": "1576031197616"
     },
     "molly": {
       "firstname": "Mengyu",
@@ -55,10 +58,23 @@
     }
   },
   "groups": {
+    "1576039633838": {
+      "groupName": "GroupXY",
+      "groupMembers": [
+        "Felix",
+        "test",
+        "al",
+        "mabarth"
+      ],
+      "groupOwner": "Felix",
+      "groupCapacity": "5"
+    },
     "1576031197616": {
       "groupName": "OtherGroup",
       "groupMembers": [
-        "Felix"
+        "Felix",
+        "untest",
+        "mabarth"
       ],
       "groupOwner": "Felix",
       "groupCapacity": "5"
