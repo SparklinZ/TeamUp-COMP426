@@ -608,7 +608,7 @@ function renderOwnStudentCard(student) {
         <p class="card-text" id = "ownBio">${student.bio}</p>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Gender: <i class="fa fa-mars fa-lg"></i></li>
+            <li class="list-group-item">Gender: ${student.gender}</li>
             <li class="list-group-item">Year: ${student.year}</li>
             <li class="list-group-item">Major:${student.major}</li>
             <li class="list-group-item">Relevant Skills: ${student.skills}</li>
@@ -627,7 +627,7 @@ async function handleEditOwnCard(event) {
     try {
         const result = await getUserData(localStorage.getItem("name"));
         console.log(result);
-        $('#userPage').prepend(renderOwnEditStudentCard(result));
+        $('#userPageBody').prepend(renderOwnEditStudentCard(result));
      } catch (error) {
          console.log(error);
          result = error;
@@ -759,7 +759,7 @@ function renderStudentCard(student) {
                 <li class="list-group-item">Relevant Skills: ${student.skills}</li>
             </ul>
             <div class="card-body">
-                <a href="#" class="card-link">Email</a>
+                <a href="mailto:${student.email}" class="card-link">Email</a>
             </div>
         </div>
     </div>`
