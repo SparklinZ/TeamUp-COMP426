@@ -43,12 +43,20 @@
   },
   "groups": {
     "1576031197616": {
+      "groupName": "OtherGroup",
+      "groupMembers": [
+        "Felix"
+      ],
+      "groupOwner": "Felix",
+      "groupCapacity": "5"
+    },
+    "1576096525388": {
       "groupName": "HelloWorld",
       "groupMembers": [
-        "Max"
+        "mabarth"
       ],
-      "groupOwner": "Max",
-      "groupCapacity": "5"
+      "groupOwner": "mabarth",
+      "groupCapacity": "4"
     }
   }
 }

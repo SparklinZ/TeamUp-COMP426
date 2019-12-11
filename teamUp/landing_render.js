@@ -14,6 +14,10 @@ $(document).ready(async () => {
     $('#content').on("click", "#canelEditingOwnCard", handleCancelEditOwnCard);
     $('#content').on("click", "#submitPostButton", handleSubmitPostPress);
     $('#content').on("click", "#createGroupButton", handleSubmitGroup);
+    $('#content').on("click", "#deleteGroup", handleDeleteGroup);
+    //$('#content').on("click", "#editGroup", handleEditGroup);
+    
+
 
 })
 
@@ -288,6 +292,9 @@ async function accountDataCreate(data) {
                 'bio': data.bio,
                 'major': data.major,
                 'skills': data.skills,
+                'ownsGroup': false,
+                'hasGroup': false,
+                'inGroup': ""
             }
         },
             { headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` } },
@@ -529,9 +536,22 @@ function renderGroupPage(groups) {
 // group card
 function renderGroupCard(group, i) {
     let groupMembers = "";
+    let buttons ="";
     for (let i = 0; i < group.groupMembers.length; i++) {
         groupMembers = groupMembers.concat(`<li class="list-group-item">${group.groupMembers[i]}</li>`);
     }
+    if(i === localStorage.getItem("ownsGroup")){
+        buttons = `<div class="btn-group float-right" role="group" aria-label="Second group">
+                    <button type="button" class="btn btn-danger" id="deleteGroup">Delete</button>
+                    </div>
+                    <div class="btn-group float-right" role="group" id="buttonGroup">
+                    <button type="button" class="btn btn-primary mr-2" id="editGroup">Edit</button>
+                    </div>
+                    `
+    } else {
+        buttons = `<button type="button" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>`
+    }
+
 
     return `<div class="card" style="width: 18rem;" id="${i}">
                 <div class="card-body">
@@ -542,10 +562,9 @@ function renderGroupCard(group, i) {
                     ${groupMembers}
                 </ul>
                 <div class="card-body">
-                    <button href="#" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>
+                    ${buttons} 
                 </div>
-            </div>
-      `
+            </div>`
 }
 
 // render student page
@@ -633,8 +652,6 @@ async function renderUserPage() {
 }
 
 function renderOwnStudentCard(student) {
-    //console.log(student);
-    //console.log(student.bio);
     return `<div class="col" id="ownCard">
     <div class="card" style="width: 20rem; margin-top:1rem">
         <div class="card-body">
@@ -666,7 +683,6 @@ async function handleEditOwnCard(event) {
         console.log(error);
         result = error;
     }
-
 }
 
 async function handleCancelEditOwnCard(event) {
@@ -737,23 +753,18 @@ async function renderStudentPage(students) {
     </div>`)
     let counter = 0;
     for (var student in students) {
-        //console.log("student in loop");
-        //console.log(student);
         if (counter === 0) {
             $("#students").append(`<div class="row">${renderStudentCard(students[student])}</div>`);
             counter = counter + 1;
-            //console.log(0);
         }
         else {
             if (counter === 1) {
                 $(".row").append(renderStudentCard(students[student]));
                 counter = counter + 1;
-                //console.log(1);
             } else {
                 if (counter === 2) {
                     $(".row").append(renderStudentCard(students[student]));
                     counter = 0;
-                    //console.log(2);
                 }
             }
 
@@ -957,30 +968,35 @@ const setToken = (key, value) => {
 
 async function handleSubmitGroup(event) {
     // get input from textarea to post it 
-    if(localStorage.getItem("ownsGroup")){
-        $("#errorMessage").append(`<span class="has-text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
+    if (localStorage.getItem("ownsGroup")) {
+        $("#errorMessage").append(`<span class="text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
     } else {
 
-        console.log("HandleSubmitGroup is called");
         event.preventDefault();
         const $form = $('#createGroupForm');
         const dataFromForm = $form.serializeArray().reduce((accumulator, x) => {
             accumulator[x.name] = x.value;
             return accumulator;
         }, {});
-        console.log("Result from reading in createGroupForm");
-        console.log(dataFromForm);
+
         // call postGroup function
         const postGroupResult = await postGroup(dataFromForm);
-        
-        /*
         setToken("ownsGroup", postGroupResult.data.result.path.split(".")[1]); 
-        console.log("Ich habe die Gruppe " + localStorage.getItem("ownsGroup"));
-        */
+
         // rerender whole wallpage for now
         return handleRenderGroupPage();
     }
 }
+
+async function handleDeleteGroup(event) {
+    event.preventDefault();
+    // call postGroup function
+    const postGroupResult = await deleteGroup(localStorage.getItem("ownsGroup"));
+    localStorage.removeItem("ownsGroup");
+    // rerender whole groupPage for now
+    return handleRenderGroupPage();
+}
+
 
 
 async function getGroups() {
@@ -989,9 +1005,9 @@ async function getGroups() {
         headers: { Authorization: `Bearer ${getToken()}` },
         url: 'http://localhost:3000/private/groups',
     });
-    console.log("Results from getGroups Call");
-    console.log(result);
-    console.log(result.data.result);
+    //console.log("Results from getGroups Call");
+    //console.log(result);
+    //console.log(result.data.result);
     return result.data.result;
 };
 
@@ -1010,7 +1026,17 @@ async function postGroup(data) {
             }
         },
     });
-    console.log("Result from postGroup Call");
-    console.log(result);
+    //console.log("Result from postGroup Call");
+    //console.log(result);
     return result;
 }
+
+
+async function deleteGroup(id) {
+    const result = await axios({
+        method: 'delete',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/private/groups/${id}`,
+    });
+    return result;
+};
