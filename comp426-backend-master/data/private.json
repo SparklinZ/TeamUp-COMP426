@@ -43,15 +43,15 @@
       "major": "Economics",
       "skills": "I am really good at googling."
     },
-    "untest": {
-      "firstname": "FNTest",
-      "lastname": "LNTest",
-      "email": "mabarth@live.unc.edu",
+    "yyzang": {
+      "firstname": "Yingyu",
+      "lastname": "Zang",
+      "email": "yyzang@ad.unc.edu",
       "gender": "Male",
       "year": "Junior",
-      "bio": "BioTest",
-      "major": "Computer Science",
-      "skills": "SkillsTest",
+      "bio": "can read can work cannot pass final exam on my own",
+      "major": "Sociology",
+      "skills": "writing/slides/coordinate",
       "ownsGroup": false,
       "hasGroup": false,
       "inGroup": ""
@@ -82,10 +82,9 @@
     "1576096525388": {
       "groupName": "HelloWorld",
       "groupMembers": [
-        "Max",
-        "Alberto"
+        "mabarth"
       ],
-      "groupOwner": "Max",
+      "groupOwner": "mabarth",
       "groupCapacity": "4"
     }
   }

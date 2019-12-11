@@ -476,12 +476,11 @@ function renderGroupPage(groups) {
             <div class="form-row">
                 <div class="col form-group">
                     <label>Group Name</label>   
-                    <input type="text" class="form-control" name="groupName">
+                    <input type="text" class="form-control" name="groupName" value="Default">
                 </div>
                 <div class = "col form-group">
                     <label>Maximum Capacity</label>
                     <select id="inputGender" class="form-control" name="maxCapacity">
-                    <option> Choose...</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
@@ -754,18 +753,23 @@ async function renderStudentPage(students) {
 
     </div>`)
     let counter = 0;
+    let row_counter = 1;
+    console.log(students);
     for (var student in students) {
         if (counter === 0) {
-            $("#students").append(`<div class="row">${renderStudentCard(students[student])}</div>`);
+            $("#students").append(`<div class="row" id="${row_counter}"}>${renderStudentCard(students[student])}</div>`);
             counter = counter + 1;
         }
         else {
             if (counter === 1) {
-                $(".row").append(renderStudentCard(students[student]));
+                let key = "#" + row_counter;
+                $(key).append(renderStudentCard(students[student]));
                 counter = counter + 1;
             } else {
                 if (counter === 2) {
-                    $(".row").append(renderStudentCard(students[student]));
+                    let key = "#" + row_counter;
+                    $(key).append(renderStudentCard(students[student]));
+                    row_counter = row_counter + 1;
                     counter = 0;
                 }
             }
