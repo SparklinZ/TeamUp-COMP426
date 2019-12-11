@@ -14,6 +14,9 @@
     },
     "jevans": {
       "passwordHash": "$2b$10$axyZq9cvIE1nMNduCqvWA.sf7UT2GCv6E0jFEKZvAlwn/sldLAvLK"
+    },
+    "untest": {
+      "passwordHash": "$2b$10$yfluDG0BtTB1imce26akuun.UZ08YwUNsZvr1DQHrl1MtfAuMVHRO"
     }
   }
 }

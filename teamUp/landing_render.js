@@ -15,7 +15,10 @@ $(document).ready(async () => {
     $('#content').on("click", "#submitPostButton", handleSubmitPostPress);
     $('#content').on("click", "#createGroupButton", handleSubmitGroup);
     $('#content').on("click", "#deleteGroup", handleDeleteGroup);
+    $('#content').on("click", "#joinGroupButton", handleJoinGroup);
     //$('#content').on("click", "#editGroup", handleEditGroup);
+
+    
     
 
 
@@ -270,8 +273,8 @@ async function handleSignup(event) {
             //     withCredentials: true,
             // },
         });
-        logInRequest(data);
-        accountDataCreate(data);
+        await logInRequest(data);
+        await accountDataCreate(data);
     } catch (error) {
         console.log(error)
         $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
@@ -1040,3 +1043,34 @@ async function deleteGroup(id) {
     });
     return result;
 };
+
+
+async function updateGroupMembers(data, id) {
+    const result = await axios({
+        method: 'post',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/private/groups/${id}/groupMembers`,
+        data: {
+            data: [data],
+            type: "merge"
+            }
+    });
+    console.log("Result from updatingGroupMembers Call");
+    console.log(result);
+    return result;
+}
+
+
+async function handleJoinGroup(event) {
+    event.preventDefault();
+    // getGroupID
+    let groupCard = event.currentTarget.closest(".card");
+    console.log(groupCard);
+    let groupID = $(groupCard).attr('id');
+
+    // call update GroupMembers function
+    const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
+
+    // rerender whole groupPage for now, maybe single call + replacewith 
+    return handleRenderGroupPage();
+}
