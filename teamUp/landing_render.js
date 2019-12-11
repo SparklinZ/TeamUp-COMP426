@@ -508,23 +508,28 @@ function renderGroupPage(groups) {
 
     // this is only for test
     //$("#groups").append(renderGroupCard());
+    //console.log(groups);
 
     let counter = 0;
+    let row_counter = 1000;
     for (var i in groups) {
-        console.log(counter);
+        //console.log(counter);
         if (counter === 0) {
-            $("#groups").append(`<div class="row">${renderGroupCard(groups[i], i)}</div>`);
+            $("#groups").append(`<div class="row" id = "${row_counter}">${renderGroupCard(groups[i], i)}</div>`);
             counter++;
             //console.log(0);
         }
         else {
             if (counter === 1) {
-                $(".row").append(renderGroupCard(groups[i], i));
+                let key = "#" + row_counter;
+                $(key).append(renderGroupCard(groups[i], i));
                 counter++;
                 //console.log(1);
             } else {
                 if (counter === 2) {
-                    $(".row").append(renderGroupCard(groups[i], i));
+                    let key = "#" + row_counter;
+                    $(key).append(renderGroupCard(groups[i], i));
+                    row_counter = row_counter + 1;
                     counter = 0;
                     //console.log(2);
                 }

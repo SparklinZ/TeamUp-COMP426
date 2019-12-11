@@ -66,10 +66,19 @@
     "1576096525388": {
       "groupName": "HelloWorld",
       "groupMembers": [
-        "mabarth"
+        "mabarth",
+        "bolin"
       ],
       "groupOwner": "mabarth",
       "groupCapacity": "4"
+    },
+    "1576105020516": {
+      "groupName": "SociologistXCoder",
+      "groupMembers": [
+        "yyzang"
+      ],
+      "groupOwner": "yyzang",
+      "groupCapacity": "3"
     }
   }
 }
