@@ -39,28 +39,13 @@
       "bio": "North Carolina born and raised. I love UNC and hope to meet some like minded individuals to make real changes to our society.",
       "major": "Economics",
       "skills": "I am really good at googling."
-    },
-    "untest": {
-      "firstname": "FNTest",
-      "lastname": "LNTest",
-      "email": "mabarth@live.unc.edu",
-      "gender": "Male",
-      "year": "Junior",
-      "bio": "BioTest",
-      "major": "Computer Science",
-      "skills": "SkillsTest",
-      "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
     }
   },
   "groups": {
     "1576031197616": {
       "groupName": "OtherGroup",
       "groupMembers": [
-        "Felix",
-        "mabarth",
-        "untest"
+        "Felix"
       ],
       "groupOwner": "Felix",
       "groupCapacity": "5"
@@ -68,10 +53,9 @@
     "1576096525388": {
       "groupName": "HelloWorld",
       "groupMembers": [
-        "Max",
-        "Alberto"
+        "mabarth"
       ],
-      "groupOwner": "Max",
+      "groupOwner": "mabarth",
       "groupCapacity": "4"
     }
   }

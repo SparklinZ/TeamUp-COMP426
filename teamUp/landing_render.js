@@ -476,7 +476,7 @@ function renderGroupPage(groups) {
             <div class="form-row">
                 <div class="col form-group">
                     <label>Group Name</label>   
-                    <input type="text" class="form-control" name="groupName">
+                    <input type="text" class="form-control" name="groupName" value="Default">
                 </div>
                 <div class = "col form-group">
                     <label>Maximum Capacity</label>
