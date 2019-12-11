@@ -39,6 +39,19 @@
       "bio": "North Carolina born and raised. I love UNC and hope to meet some like minded individuals to make real changes to our society.",
       "major": "Economics",
       "skills": "I am really good at googling."
+    },
+    "yyzang": {
+      "firstname": "Yingyu",
+      "lastname": "Zang",
+      "email": "yyzang@ad.unc.edu",
+      "gender": "Male",
+      "year": "Junior",
+      "bio": "can read can work cannot pass final exam on my own",
+      "major": "Sociology",
+      "skills": "writing/slides/coordinate",
+      "ownsGroup": false,
+      "hasGroup": false,
+      "inGroup": ""
     }
   },
   "groups": {
