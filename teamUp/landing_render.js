@@ -478,7 +478,6 @@ function renderGroupPage(groups) {
                 <div class = "col form-group">
                     <label>Maximum Capacity</label>
                     <select id="inputGender" class="form-control" name="maxCapacity">
-                    <option> Choose...</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
