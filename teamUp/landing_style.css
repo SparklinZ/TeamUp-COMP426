@@ -1,0 +1,439 @@
+html, body{
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    padding-bottom: 30px; 
+}
+
+.navbar{
+    background-color: #FFFFFF;
+    padding: 1% 0;
+    font-size: 1.2em;
+    margin-bottom:0;
+    border-radius:0;
+    vertical-align: middle;
+}
+
+.navbar-brand{
+    min-height: 40px;
+}
+
+#signup{
+    background-color: #7BAFD4;
+}
+
+#signupButton{
+    background-color: #7BAFD4;
+}
+
+#logout{
+    background-color: #7BAFD4;
+    border-color: #7BAFD4;
+}
+
+.navbar-brand>img{
+    max-height: 40px;
+    width: auto;
+}
+
+.navbar-right span{
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.navbar-right a{
+    vertical-align: middle;
+    padding: 2px 5px;
+    font-weight: 600;
+}
+
+.background{
+    background: #fff,linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)) no-repeat center center fixed;
+    background-blend-mode: overlay;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+
+
+.btn-custom{
+    width: 40%;
+    margin-right: 10px;
+    font-weight: 400;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-custom2{
+    width: 55%;
+    margin-left: 7px;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-custom3{
+    width: 100%;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Nunito', sans-serif;
+    margin-right: 4px;
+}
+
+.text{
+    font-size: 50px;
+    font-family: 'Nunito', sans-serif;
+    color: #000;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-weight: 200;
+}
+
+.container{
+    position: relative;
+}
+
+
+.overlay{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    opacity: 1.0;
+    z-index: 1;
+}
+
+#video-background{
+    position: absolute;
+    right: 0; 
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto; 
+    height: auto;
+    z-index: -100;
+    background-size: cover;
+    -webkit-filter: brightness(60%);
+    filter: brightness(60%);
+}
+
+.word-logo{
+    display: block;
+    padding-top: 90px;
+    padding-bottom: 40px;
+    height: auto;
+    width: 68%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.landing-text{
+    color: white;
+    position: relative;
+    padding-bottom: 40px;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 1.5em;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 200;
+}
+
+.btn-toolbar{
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+
+
+#loginPage{
+    background: url(icon/student-login-background.jpeg),(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) no-repeat center center fixed;
+
+}
+
+.loginbox{
+    width: 320px;
+    height: 420px;
+    background:#13294B;
+    color: #fff;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    padding: 70px 30px;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: -50px;
+    left: calc(50% - 50px);
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+.loginbox p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.loginbox input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+.loginbox input[type="text"], input[type="password"]
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+.loginbox input[type="submit"]
+{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+}
+.loginbox input[type="submit"]:hover
+{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+.loginbox a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: darkgrey;
+}
+
+.loginbox a:hover
+{
+    color: #ffc107;
+}
+
+
+
+
+#wallPage{
+    padding-top: 1cm;
+}
+
+.panel{
+    margin: auto;
+    border: 3px solid lightskyblue;
+    padding: 10px;
+    width: 50%;
+    background: #fff;
+}
+
+
+.list-group-item-tweets {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid transparent;
+}
+
+.resizeImg {
+    height: 64px;
+    width: 64px;
+}
+
+body {
+    background: url(icon/student-login-background-bright.jpg) fixed;
+   background-size: cover;
+}
+
+*[role="form"] {
+   max-width: 530px;
+   padding: 15px;
+   margin: 0 auto;
+   border-radius: 0.3em;
+   background-color: #f2f2f2;
+}
+
+*[role="form"] h2 { 
+   font-family: 'Open Sans' , sans-serif;
+   font-size: 40px;
+   font-weight: 600;
+   color: #000000;
+   margin-top: 5%;
+   text-align: center;
+   text-transform: uppercase;
+   letter-spacing: 4px;
+}
+
+
+
+
+
+
+
+/* Include the padding and border in an element's total width and height */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Remove margins and padding from the list */
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style the list items */
+  ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+  
+    /* make the list items unselectable */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Set all odd list items to a different color (zebra-stripes) */
+  ul li:nth-child(odd) {
+    background: #f9f9f9;
+  }
+  
+  /* Darker background-color on hover */
+  ul li:hover {
+    background: #ddd;
+  }
+  
+  /* When clicked on, add a background color and strike out text */
+  ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+  }
+  
+  /* Add a "checked" mark when clicked on */
+  ul li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+  }
+  
+  /* Style the close button */
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+  }
+  
+  .close:hover {
+    background-color: #7BAFD4;
+    color: white;
+  }
+  
+  /* Style the header */
+  .header {
+    background-color: #7BAFD4;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+  }
+  
+  /* Clear floats after the header */
+  .header:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Style the input */
+  #myInput {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+  }
+  
+  /* Style the "Add" button */
+  #addToDoButton {
+    padding: 10px;
+    width: 25%;
+    background-color: #13294B;
+    color:white;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+  }
+
+  #createGroupButton{
+    background-color: #13294B;
+    color:white;   
+  }
+
+  #deleteToDoButton{
+    background-color: #7BAFD4;
+  }
+
+  #buttonGroup{
+    text-align: center;
+  }
+
+
+  #editOwnCard{
+    background-color: #13294B;
+    color:white;   
+  }
+  #canelEditingOwnCard{
+    background-color: #000;
+    color: white;
+  }
+
+  #doneEditingOwnCard{
+    background-color: #7BAFD4;
+  }
+  
+
+  #joinGroupButton{
+    background-color: #7BAFD4;
+  }

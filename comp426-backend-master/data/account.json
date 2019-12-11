@@ -1,0 +1,19 @@
+{
+  "users": {
+    "bolin": {
+      "passwordHash": "$2b$10$Y0BJnKbQ/FI3h7PVW8x4AuwoSjJ5BoZfpXBRA0ldEaPRMRHBZYq2."
+    },
+    "mabarth": {
+      "passwordHash": "$2b$10$dY/Ji6A3hRElsBWhozWWp.qIFDybFxkQeDGOzBwHFdUfxGvajcUFi"
+    },
+    "molly": {
+      "passwordHash": "$2b$10$EDNc5mYEOcZt75WdDxTsX.YNj6lA0e.HX2MPO7Yb1WYDc3yWMlh4C"
+    },
+    "jinsingsangsung": {
+      "passwordHash": "$2b$10$.L2htfGgnDYXAU48Q/Y/eOJX7c6s2KGJ7TlqjPY3uMcCoePRNgJAq"
+    },
+    "jevans": {
+      "passwordHash": "$2b$10$axyZq9cvIE1nMNduCqvWA.sf7UT2GCv6E0jFEKZvAlwn/sldLAvLK"
+    }
+  }
+}

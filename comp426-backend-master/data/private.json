@@ -1,0 +1,44 @@
+{
+  "users": {
+    "bolin": {
+      "firstname": "Bolin",
+      "lastname": "Zhu",
+      "email": "bolin.zhu123@gmail.com",
+      "gender": "Male",
+      "year": "Junior",
+      "bio": "I am interested in improving decision making process using various IT-driven tools, software and techniques. ",
+      "major": "Business Analytics",
+      "skills": "Python and machine learning. "
+    },
+    "mabarth": {
+      "firstname": "Maximilian",
+      "lastname": "Barth",
+      "email": "mabarth@live.unc.edu",
+      "gender": "Male",
+      "year": "Junior",
+      "bio": "I like pizza.",
+      "major": "Computer Science",
+      "skills": "Java, Cloud Computing, Integrations, SAP"
+    },
+    "molly": {
+      "firstname": "Mengyu",
+      "lastname": "Zhong",
+      "email": "mengyu_zhong@outlook.com",
+      "gender": "Female",
+      "year": "Grad School",
+      "bio": "Hi, I'm an exchange student. Need a team. ",
+      "major": "IT & Cognition",
+      "skills": "Python, C++, Javascript"
+    },
+    "jevans": {
+      "firstname": "Josh",
+      "lastname": "Evans",
+      "email": "evansjosh@gmail.com",
+      "gender": "Male",
+      "year": "Junior",
+      "bio": "North Carolina born and raised. I love UNC and hope to meet some like minded individuals to make real changes to our society.",
+      "major": "Economics",
+      "skills": "I am really good at googling."
+    }
+  }
+}
