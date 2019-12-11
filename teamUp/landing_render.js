@@ -13,7 +13,7 @@ $(document).ready(async () => {
     $('#content').on("click", "#editOwnCard", handleEditOwnCard);
     $('#content').on("click", "#canelEditingOwnCard", handleCancelEditOwnCard);
     $('#content').on("click", "#submitPostButton", handleSubmitPostPress);
-
+    $('#content').on("click", "#createGroupButton", handleSubmitGroup);
 
 })
 
@@ -119,8 +119,8 @@ async function logInRequest(data) {
     }).then((res) => {
         $message.html(`<span class="has-text-success">Success! You are now logged in.</span>`);
         // Store the jwt token from the response to use it later on for authorization 
-        localStorage.setItem('jwt', res.jwt);
-        localStorage.setItem('name', res.name);
+        setToken('jwt', res.jwt);
+        setToken('name', res.name);
         handleRenderGroupPage();
         // Call the rerenderFunction (to be written) to show GroupPage including a logoff button in navbar
         //rerender();
@@ -258,20 +258,20 @@ async function handleSignup(event) {
     // });
 
     try {
-         await $.ajax({
-        url: 'http://localhost:3000/account/create',
-        type: 'POST',
-        data,
-        // xhrFields: {
-        //     withCredentials: true,
-        // },
-    }) ;
+        await $.ajax({
+            url: 'http://localhost:3000/account/create',
+            type: 'POST',
+            data,
+            // xhrFields: {
+            //     withCredentials: true,
+            // },
+        });
         logInRequest(data);
         accountDataCreate(data);
     } catch (error) {
         console.log(error)
         $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
-    } 
+    }
 
 }
 
@@ -455,20 +455,20 @@ async function getWallPost(id) {
 
 
 // render group page
-function renderGroupPage() {
+function renderGroupPage(groups) {
     $("#welcome").html(`Welcome,<a onclick="handleRenderUserPage()">${localStorage.getItem('name')}</a>!`);
     $("#groupPage").append(`<div class="background"></div>
     <div class="container"> 
         <p class="text">Team up with someone today!</p>
-        <!-- create group form -->
+        
+        <!-- Form to create a group-->
         <form  class="form-horizontal" role="form" id="createGroupForm" >    
             <div class="form-row">
                 <div class="col form-group">
                     <label>Group Name</label>   
                     <input type="text" class="form-control" name="groupName">
-                </div> <!-- form-group end.// -->
-            
-            <div class = "col form-group">
+                </div>
+                <div class = "col form-group">
                     <label>Maximum Capacity</label>
                     <select id="inputGender" class="form-control" name="maxCapacity">
                     <option> Choose...</option>
@@ -476,63 +476,97 @@ function renderGroupPage() {
                     <option>4</option>
                     <option>5</option>
                     </select>
-                </div> <!-- form-group end.// -->
+                </div>
             </div>
-
             <div class="form-row">
                 <div class="form-group">
                     <button type="button" class="btn btn-primary btn-lg btn-block" id="createGroupButton">Create Group</button>
-                </div> <!-- form-group// -->       
+                </div>       
+            </div>
+            <div class="field">
+                <div class="control">
+                    <p id="errorMessage"></p>
+                </div>
             </div>
         </form>
 
 
 
-        <!-- group cards to be inserted dynamically -->
-        <div id="groups"> </div>`)
+        <!-- group cards will be inserted below dynamically -->
+        <div id="groups"> 
+        
+        </div>`)
 
-    $("#groups").append(renderGroupCard());
+    // this is only for test
+    //$("#groups").append(renderGroupCard());
 
+    let counter = 0;
+    for (var i in groups) {
+        console.log(counter);
+        if (counter === 0) {
+            $("#groups").append(`<div class="row">${renderGroupCard(groups[i], i)}</div>`);
+            counter++;
+            //console.log(0);
+        }
+        else {
+            if (counter === 1) {
+                $(".row").append(renderGroupCard(groups[i], i));
+                counter++;
+                //console.log(1);
+            } else {
+                if (counter === 2) {
+                    $(".row").append(renderGroupCard(groups[i], i));
+                    counter = 0;
+                    //console.log(2);
+                }
+            }
+
+        }
+    }
 }
 
+
 // group card
-function renderGroupCard(group) {
-    return `<div class="card" style="width: 18rem;">
-<div class="card-body">
-  <h1 class="card-title bold">Hello World</h1>
-  <p class="card-text" style="text-align:center;">Max Capacity 3</p>
-</div>
-<ul class="list-group list-group-flush">
-  <li class="list-group-item">Bolin Zhu</li>
-  <li class="list-group-item">Molly Zhong</li>
-  <li class="list-group-item">Max Barth</li>
-</ul>
-<div class="card-body">
-  <button href="#" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>
-</div>
-</div>
-      </div>`
+function renderGroupCard(group, i) {
+    let groupMembers = "";
+    for (let i = 0; i < group.groupMembers.length; i++) {
+        groupMembers = groupMembers.concat(`<li class="list-group-item">${group.groupMembers[i]}</li>`);
+    }
+
+    return `<div class="card" style="width: 18rem;" id="${i}">
+                <div class="card-body">
+                    <h1 class="card-title bold">${group.groupName}</h1>
+                    <p class="card-text" style="text-align:center;">Max Capacity: ${group.groupCapacity}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    ${groupMembers}
+                </ul>
+                <div class="card-body">
+                    <button href="#" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>
+                </div>
+            </div>
+      `
 }
 
 // render student page
-async function getUserData(name){
+async function getUserData(name) {
     try {
-    const res = await $.ajax({
-        url: `http://localhost:3000/private/users/${name}`,
-        type: 'GET',
-        headers:{ Authorization: `Bearer ${getToken()}` }
-    })
+        const res = await $.ajax({
+            url: `http://localhost:3000/private/users/${name}`,
+            type: 'GET',
+            headers: { Authorization: `Bearer ${getToken()}` }
+        })
         return res.result;
 
-    } catch(error){
+    } catch (error) {
         let result = 'code has-error';
         return result;
-    }    
+    }
 }
 
 
 async function renderUserPage() {
-    
+
     $("#userPage").append(`<div class="background"></div>
     <div class="container">
     <p class="text">Team up with someone today!</p>
@@ -572,20 +606,20 @@ async function renderUserPage() {
             
        </div> 
     </div>`);
-   
+
     try {
-       const result = await getUserData(localStorage.getItem("name"))
-       $("#userPageBody").prepend(renderOwnStudentCard(result));
+        const result = await getUserData(localStorage.getItem("name"))
+        $("#userPageBody").prepend(renderOwnStudentCard(result));
     } catch (error) {
         console.log(error);
         result = error;
-    }  
-    
+    }
 
-    
-    
-   
-        //$("#students").append(renderOwnEditStudentCard());
+
+
+
+
+    //$("#students").append(renderOwnEditStudentCard());
 
     // async function to get all the students and render student cards individually using renderStudentCard(student)
 
@@ -622,17 +656,17 @@ function renderOwnStudentCard(student) {
 
 
 async function handleEditOwnCard(event) {
-    
+
     $("#ownCard").remove();
     try {
         const result = await getUserData(localStorage.getItem("name"));
         console.log(result);
         $('#userPageBody').prepend(renderOwnEditStudentCard(result));
-     } catch (error) {
-         console.log(error);
-         result = error;
-     }  
-    
+    } catch (error) {
+        console.log(error);
+        result = error;
+    }
+
 }
 
 async function handleCancelEditOwnCard(event) {
@@ -786,7 +820,7 @@ function renderStudentCard(student) {
 }
 
 // function that is called once user is logged on to render new group page
-function handleRenderGroupPage(res) {
+async function handleRenderGroupPage(res) {
     $('#loginPage').empty();
     $('#wallPage').empty();
     $('#homePage').empty();
@@ -800,7 +834,24 @@ function handleRenderGroupPage(res) {
     $('#studentsDiv').show();
     $('#groupPage').empty();
     $("#userPage").empty();
-    $('#groupPage').append(renderGroupPage(res));
+
+
+    const groups = await getGroups();
+    // call getWallPosts function and forward result to renderPost function
+    renderGroupPage(groups);
+
+
+
+    /*
+    // call getGroups function and forward result to renderGroupPage function
+    const groups = await getGroups();
+    console.log(groups);
+    renderGroupPage(groups);  
+
+    // TO DO: we need to add an update call for users route that adds groupNumber, isGroupOwner, hasGroup
+
+    //$('#groupPage').append(renderGroupPage(res));
+*/
 
 
 }
@@ -899,7 +950,67 @@ const getToken = () => {
     return token;
 }
 
-const setToken = (jwtToken) => {
-    token = jwtToken;
-    localStorage.setItem('jwt', token);
+const setToken = (key, value) => {
+    localStorage.setItem(key, value);
+}
+
+
+async function handleSubmitGroup(event) {
+    // get input from textarea to post it 
+    if(localStorage.getItem("ownsGroup")){
+        $("#errorMessage").append(`<span class="has-text-danger">You already own group ${localStorage.getItem("ownsGroup")}.</span>`)
+    } else {
+
+        console.log("HandleSubmitGroup is called");
+        event.preventDefault();
+        const $form = $('#createGroupForm');
+        const dataFromForm = $form.serializeArray().reduce((accumulator, x) => {
+            accumulator[x.name] = x.value;
+            return accumulator;
+        }, {});
+        console.log("Result from reading in createGroupForm");
+        console.log(dataFromForm);
+        // call postGroup function
+        const postGroupResult = await postGroup(dataFromForm);
+        
+        /*
+        setToken("ownsGroup", postGroupResult.data.result.path.split(".")[1]); 
+        console.log("Ich habe die Gruppe " + localStorage.getItem("ownsGroup"));
+        */
+        // rerender whole wallpage for now
+        return handleRenderGroupPage();
+    }
+}
+
+
+async function getGroups() {
+    const result = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: 'http://localhost:3000/private/groups',
+    });
+    console.log("Results from getGroups Call");
+    console.log(result);
+    console.log(result.data.result);
+    return result.data.result;
+};
+
+
+async function postGroup(data) {
+    const result = await axios({
+        method: 'post',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/private/groups/${Date.now()}`,
+        data: {
+            data: {
+                groupName: data.groupName,
+                groupMembers: [localStorage.getItem('name')],
+                groupOwner: localStorage.getItem('name'),
+                groupCapacity: data.maxCapacity
+            }
+        },
+    });
+    console.log("Result from postGroup Call");
+    console.log(result);
+    return result;
 }

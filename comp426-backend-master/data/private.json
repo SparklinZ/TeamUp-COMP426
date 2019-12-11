@@ -40,5 +40,15 @@
       "major": "Economics",
       "skills": "I am really good at googling."
     }
+  },
+  "groups": {
+    "1576031197616": {
+      "groupName": "HelloWorld",
+      "groupMembers": [
+        "Max"
+      ],
+      "groupOwner": "Max",
+      "groupCapacity": "5"
+    }
   }
 }
