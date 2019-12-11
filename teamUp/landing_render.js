@@ -1,5 +1,9 @@
 $(document).ready(async () => {
+    if(localStorage.getItem("jwt")){
+        handleRenderGroupPage();
+    } else {
     $('#homePage').append(renderHomePage());
+    }
     $('#content').on("click", "#login", handleRenderLogin);
     $('#signup').on("click", handleRenderSignUp);
     $('#navBar').on("click", "#wall", handleRenderWall);
