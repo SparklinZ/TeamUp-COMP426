@@ -17,6 +17,9 @@
     },
     "yyzang": {
       "passwordHash": "$2b$10$VKgYMXj.z2chgQKJndjo0OXIq0qMHBUS75ZElHzMJHC2Dvx.TqYvO"
+    },
+    "iggy": {
+      "passwordHash": "$2b$10$IDDnankMiJjmWiawLfVc0uNH.snBMOyzLL7U61czw4ah266.jzxYe"
     }
   }
 }
