@@ -447,7 +447,7 @@ body {
     
   }
 
-  .groupCard {
+  #groupCard {
     overflow: hidden;
     margin-left: auto;
     margin-right: auto;
