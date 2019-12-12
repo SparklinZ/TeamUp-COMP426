@@ -38,3 +38,15 @@ router.delete('/*', parseDelete, function (req, res) {
     res.send({result})
   }
 });
+
+
+router.get('/status', authenticateUser, function (req, res) {
+  res.send(
+    {
+      user: {
+        name: req.user.name,
+        ...userFilter(accountStore.get(`users.${req.user.name}`))
+      }
+    }
+  );
+});

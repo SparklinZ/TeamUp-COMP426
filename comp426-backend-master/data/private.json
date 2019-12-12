@@ -25,8 +25,8 @@
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
       "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "hasGroup": true,
+      "inGroup": "1576127907144"
     },
     "molly": {
       "username": "molly",
@@ -103,7 +103,8 @@
     "1576127907144": {
       "groupName": "Hello World",
       "groupMembers": [
-        "bolin"
+        "bolin",
+        "mabarth"
       ],
       "groupOwner": "bolin",
       "groupCapacity": "3"
