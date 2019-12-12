@@ -108,9 +108,9 @@
       "bio": "it doesnt have to be long",
       "major": "Drama, Theatre and Performance",
       "skills": "clowning, piano, guitar, directing, acting, drawing, painting",
-      "ownsGroup": true,
+      "ownsGroup": false,
       "hasGroup": true,
-      "inGroup": "1576183334624"
+      "inGroup": "1576127907144"
     }
   },
   "groups": {
@@ -118,7 +118,8 @@
       "groupName": "Hello World",
       "groupMembers": [
         "bolin",
-        "molly"
+        "molly",
+        "aoifemdr"
       ],
       "groupOwner": "bolin",
       "groupCapacity": "3"
@@ -140,14 +141,6 @@
       ],
       "groupOwner": "yyzang",
       "groupCapacity": "4"
-    },
-    "1576183334624": {
-      "groupName": "",
-      "groupMembers": [
-        "aoifemdr"
-      ],
-      "groupOwner": "aoifemdr",
-      "groupCapacity": "3"
     }
   }
 }
