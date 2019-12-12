@@ -20,6 +20,10 @@ $(document).ready(async () => {
     $('#content').on("click", "#createGroupButton", handleSubmitGroup);
     $('#content').on("click", "#deleteGroup", handleDeleteGroup);
     $('#content').on("click", "#joinGroupButton", handleJoinGroup);
+    $('#content').on("click", "#addToDoButton", handleSubmitToDo);
+    $('#content').on("click", ".deleteToDoButton", handleDeleteToDo);
+    
+
     //$('#content').on("click", "#editGroup", handleEditGroup);
 
 
@@ -462,7 +466,7 @@ async function getWallPost(id) {
         method: 'get',
         url: `http://localhost:3000/public/wallposts/${id}`,
     });
-    console.log(result.data.result);
+    //console.log(result.data.result);
     return result.data.result;
 };
 
@@ -470,8 +474,8 @@ async function getWallPost(id) {
 
 // render group page
 function renderGroupPage(groups) {
-    console.log("Aufruf der RenderGroupPageMethode");
-    console.log(groups);
+    //console.log("Aufruf der RenderGroupPageMethode");
+    //console.log(groups);
     $("#welcome").html(`Welcome,<a onclick="handleRenderUserPage()">${localStorage.getItem('name')}</a>!`);
     $("#groupPage").append(`<div class="background"></div>
     <div class="container"> 
@@ -546,8 +550,8 @@ function renderGroupPage(groups) {
 function renderGroupCard(group, i) {
     let groupMembers = "";
     let buttons = "";
-    console.log("Aufruf der RenderGroupCardMethode");
-    console.log(group);
+    //console.log("Aufruf der RenderGroupCardMethode");
+    //console.log(group);
     for (let i = 0; i < group.groupMembers.length; i++) {
         groupMembers = groupMembers.concat(`<li class="list-group-item">${group.groupMembers[i]}</li>`);
     }
@@ -619,14 +623,14 @@ async function renderUserPage() {
                     
                 <!-- to be inserted dynamically -->
                 <!-- maybe a functino called renderToDoList()-->
-
-                    <li class="list-group-item">Proposal due October 12th <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</button></li>
+                <!--<li class="list-group-item">Proposal due October 12th <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</button></li>
                     
-                    <li class="list-group-item">Mockup due October 31st <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>
+                <li class="list-group-item">Mockup due October 31st <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>
+            
+                <li class="list-group-item">15% Video due December 10th <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>
+            
+                <li class="list-group-item">15% Presentation/Expo due December 12th<button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>-->
 
-                    <li class="list-group-item">15% Video due December 10th <button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>
-
-                    <li class="list-group-item">15% Presentation/Expo due December 12th<button type="button" class="btn btn-primary btn-lg pull-right" id="deleteToDoButton">Delete</li>
 
                 </ul>
 
@@ -867,7 +871,7 @@ async function handleRenderGroupPage(res) {
     renderGroupPage(groups);
 
     // call getWallPosts function and forward result to renderPost function
-    
+
 
 
 
@@ -923,7 +927,7 @@ async function getStudents() {
     return result.data.result;
 };
 
-function handleRenderUserPage() {
+async function handleRenderUserPage() {
     $('#loginPage').empty();
     $('#wallPage').empty();
     $('#homePage').empty();
@@ -937,6 +941,10 @@ function handleRenderUserPage() {
     $('#userPage').empty();
     $('#studentPage').empty();
     $('#userPage').append(renderUserPage());
+
+    const toDos = await getToDos();
+    renderToDoList(toDos);
+
 }
 
 // function that is called after click on logout button
@@ -1088,8 +1096,8 @@ async function updateGroupMembers(data, id) {
             type: "merge"
         }
     });
-    console.log("Result from updatingGroupMembers Call");
-    console.log(result);
+    //console.log("Result from updatingGroupMembers Call");
+    //console.log(result);
     return result;
 }
 
@@ -1098,8 +1106,8 @@ async function handleJoinGroup(event) {
     event.preventDefault();
     // getGroupID
     let studentGroupData = await hasGroup();
-    console.log("In JoinHandler")
-    console.log(studentGroupData);
+    //console.log("In JoinHandler")
+    //console.log(studentGroupData);
 
     if (studentGroupData.data.result.hasGroup === false) {
         let groupCard = event.currentTarget.closest(".card");
@@ -1133,8 +1141,8 @@ async function hasGroup() {
         headers: { Authorization: `Bearer ${getToken()}` },
         url: `http://localhost:3000/private/users/${localStorage.getItem("name")}`,
     });
-    console.log("Results from HasGroup Call");
-    console.log(result);
+    //console.log("Results from HasGroup Call");
+    //console.log(result);
     return result;
 };
 
@@ -1149,7 +1157,93 @@ async function updateStudentsGroupInfo(attr, data) {
             data: data
         }
     });
-    console.log("Result from studentInfo Call");
-    console.log(result);
+    //console.log("Result from studentInfo Call");
+    //console.log(result);
     return result;
 }
+
+
+async function getToDos() {
+    const result = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: 'http://localhost:3000/user/todos',
+    });
+    console.log("Results from getToDos Call");
+    //console.log(result);
+    return result;
+};
+
+
+
+async function renderToDoList(toDos) {
+    console.log(toDos);
+
+    let key = "";
+    let list = "";
+    for (var toDo in toDos.data.result) {
+        key = toDo;
+        console.log(key);
+        list = list.concat(`<li class="list-group-item" id="${key}">${toDos.data.result[toDo].toDo}<button type="button" class="btn btn-primary btn-lg pull-right deleteToDoButton" id="deleteToDoButton">Delete</button></li>`);
+    }
+    return $("#toDoList").append(list);
+}
+
+
+async function postToDo(data) {
+    const result = await axios({
+        method: 'post',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/user/todos/${Date.now()}`,
+        data: {
+            data: data
+        }
+    });
+    console.log("Results from getToDos Call");
+    console.log(result);
+    return result;
+};
+
+
+
+// <input type="text" name="toDo" id="myInput" placeholder="To do...">
+
+async function handleSubmitToDo(event) {
+    event.preventDefault();
+
+    const $form = $('#toDo-form');
+    const dataFromForm = $form.serializeArray().reduce((accumulator, x) => {
+        accumulator[x.name] = x.value;
+        return accumulator;
+    }, {});
+
+    // call postGroup function
+    const postToDoResult = await postToDo(dataFromForm);
+    //let newGroupId = postGroupResult.data.result.path.split(".")[1]
+
+    // rerender whole wallpage for now
+    return handleRenderUserPage();
+
+}
+
+
+
+async function handleDeleteToDo(event) {
+    event.preventDefault();
+    let toDoCard = event.currentTarget.closest(".list-group-item");
+    let toDoID = $(toDoCard).attr('id');
+    // call postGroup function
+    const deleteResult = await deleteToDo(toDoID);
+    // rerender whole groupPage for now
+    return handleRenderUserPage();
+}
+
+async function deleteToDo(id) {
+    const result = await axios({
+        method: 'delete',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/user/todos/${id}`,
+    });
+    console.log(result);
+    return result;
+};
