@@ -9,12 +9,12 @@ export const prefix = '/private';
 
 const {privateStore} = require('../data/DataStore');
 
-var id = 0;
 /**
  * Every request to this route needs
  * to be made from an authenticated user.
  */
 router.use(authenticateUser);
+
 
 router.get('/*', parseGet, function (req, res) {
   const result = req.handleGet(privateStore);
@@ -40,13 +40,19 @@ router.delete('/*', parseDelete, function (req, res) {
 });
 
 
-router.get('/status', authenticateUser, function (req, res) {
-  res.send(
-    {
-      user: {
-        name: req.user.name,
-        ...userFilter(accountStore.get(`users.${req.user.name}`))
+/*
+router.get('/*', function (req, res) {
+  let response;
+  if (typeof req.query.username != 'undefined'){
+    response = privateStore.filter(function(ele){
+      if(ele.username === req.query.username){
+        return ele;
       }
-    }
-  );
+    });
+  } else {
+    response = req.handleGet(privateStore);
+  }
+
+  res.json(response); 
 });
+*/

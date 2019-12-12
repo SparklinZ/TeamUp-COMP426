@@ -1208,6 +1208,7 @@ async function handleJoinGroup(event) {
             updateStudentsGroupInfo("hasGroup", true);
             updateStudentsGroupInfo("inGroup", groupID);
 
+            // <button type="button" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>
             // rerender whole groupPage for now, maybe single call + replacewith 
             return handleRenderGroupPage();
         } else {
@@ -1357,3 +1358,18 @@ async function getGroup(id) {
     //console.log(result.data.result);
     return result;
 };
+
+
+/* This is used for backend exploration
+async function getGroupsDummy() {
+    const result = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: 'http://localhost:3000/private/users',
+        params: { username: "bolin"}
+    });
+    //console.log("Results from getGroups Call");
+    console.log(result);
+    //console.log(result.data.result);
+    return result.data.result;
+};*/

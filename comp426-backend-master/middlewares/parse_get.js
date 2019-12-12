@@ -3,7 +3,9 @@ import {parsePath} from "./parse_utils";
 // access our datastore
 export function parseGet(req, res, next) {
     let {path, isIndexRequest, isBaseRequest, userName, isUserRequest} = parsePath(req);
-
+    //console.log("Req.query: ");
+    //console.log(req.query);
+    
     if (isBaseRequest) {
         req.handleGet = (store) => {
             if (isUserRequest) {
