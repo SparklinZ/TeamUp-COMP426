@@ -53,8 +53,8 @@
       "major": "Economics",
       "skills": "I am really good at googling.",
       "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "hasGroup": true,
+      "inGroup": "1576127907147"
     },
     "yyzang": {
       "username": "yyzang",
@@ -68,7 +68,7 @@
       "skills": "writing/slides/coordinate",
       "ownsGroup": true,
       "hasGroup": true,
-      "inGroup": ""
+      "inGroup": "1576127907147"
     },
     "abach": {
       "username": "abach",
@@ -81,8 +81,8 @@
       "major": "Accounting",
       "skills": "Financial Accounting, Research, Financial Modelling, EU Law",
       "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "hasGroup": true,
+      "inGroup": "1576127907146"
     },
     "ralle": {
       "username": "ralle",
@@ -94,9 +94,9 @@
       "bio": "Law is my life",
       "major": "Law",
       "skills": "Business Law, EU Law, Management",
-      "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "ownsGroup": true,
+      "hasGroup": true,
+      "inGroup": "1576127907146"
     }
   },
   "groups": {

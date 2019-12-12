@@ -30,5 +30,21 @@
         "toDo": ""
       }
     }
+  },
+  "bolin": {
+    "todos": {
+      "1576119747320": {
+        "toDo": "Proposal due October 12th"
+      },
+      "1576119753265": {
+        "toDo": "Mockup due October 31st"
+      },
+      "1576119760041": {
+        "toDo": "15% Video due December 10th"
+      },
+      "1576119765722": {
+        "toDo": "15% Presentation/Expo due December 12th"
+      }
+    }
   }
 }
