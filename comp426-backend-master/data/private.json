@@ -39,8 +39,8 @@
       "major": "IT&Cognition",
       "skills": "Javascript, many skills",
       "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "hasGroup": true,
+      "inGroup": "1576127907144"
     },
     "jevans": {
       "username": "jevans",
@@ -104,7 +104,8 @@
       "groupName": "Hello World",
       "groupMembers": [
         "bolin",
-        "mabarth"
+        "mabarth",
+        "molly"
       ],
       "groupOwner": "bolin",
       "groupCapacity": "3"
