@@ -9,7 +9,10 @@
       "year": "Junior",
       "bio": "I am interested in improving decision making process using various IT-driven tools, software and techniques. ",
       "major": "Business Analytics",
-      "skills": "Python and machine learning. "
+      "skills": "Python and machine learning. ",
+      "ownsGroup": true,
+      "hasGroup": true,
+      "inGroup": "1576127907144"
     },
     "mabarth": {
       "username": "mabarth",
@@ -22,8 +25,8 @@
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
       "ownsGroup": false,
-      "hasGroup": true,
-      "inGroup": "1576031197616"
+      "hasGroup": false,
+      "inGroup": ""
     },
     "molly": {
       "username": "molly",
@@ -36,8 +39,8 @@
       "major": "IT&Cognition",
       "skills": "Javascript, many skills",
       "ownsGroup": false,
-      "hasGroup": true,
-      "inGroup": "1576096525388"
+      "hasGroup": false,
+      "inGroup": ""
     },
     "jevans": {
       "username": "jevans",
@@ -65,7 +68,7 @@
       "skills": "writing/slides/coordinate",
       "ownsGroup": true,
       "hasGroup": true,
-      "inGroup": "1576105020516"
+      "inGroup": ""
     },
     "abach": {
       "username": "abach",
@@ -92,49 +95,17 @@
       "major": "Law",
       "skills": "Business Law, EU Law, Management",
       "ownsGroup": false,
-      "hasGroup": true,
-      "inGroup": "1576031197616"
+      "hasGroup": false,
+      "inGroup": ""
     }
   },
   "groups": {
-    "1576039633838": {
-      "groupName": "GroupXY",
+    "1576127907144": {
+      "groupName": "Hello World",
       "groupMembers": [
-        "Felix",
-        "test",
-        "al",
-        "test",
-        "test2"
-      ],
-      "groupOwner": "al",
-      "groupCapacity": "5"
-    },
-    "1576031197616": {
-      "groupName": "OtherGroup",
-      "groupMembers": [
-        "Felix",
-        "untest",
-        "ralle",
-        "mabarth"
-      ],
-      "groupOwner": "Felix",
-      "groupCapacity": "5"
-    },
-    "1576105020516": {
-      "groupName": "SociologistXCoder",
-      "groupMembers": [
-        "yyzang"
-      ],
-      "groupOwner": "yyzang",
-      "groupCapacity": "3"
-    },
-    "1576112351359": {
-      "groupName": "test",
-      "groupMembers": [
-        "mabarth",
         "bolin"
       ],
-      "groupOwner": "mabarth",
+      "groupOwner": "bolin",
       "groupCapacity": "3"
     }
   }
