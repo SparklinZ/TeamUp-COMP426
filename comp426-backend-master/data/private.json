@@ -8,10 +8,7 @@
       "year": "Junior",
       "bio": "I am interested in improving decision making process using various IT-driven tools, software and techniques. ",
       "major": "Business Analytics",
-      "skills": "Python and machine learning. ",
-      "ownsGroup": true,
-      "hasGroup": true,
-      "inGroup": "1576112944730"
+      "skills": "Python and machine learning. "
     },
     "mabarth": {
       "firstname": "Maximilian",
@@ -35,12 +32,12 @@
       "email": "mengyu_zhong@outlook.com",
       "gender": "Female",
       "year": "Grad School",
-      "bio": "Hi, I'm an exchange student. Need a team. ",
-      "major": "IT & Cognition",
-      "skills": "Python, C++, Javascript",
+      "bio": "Hi, I'm an exchange student from Denmark. Need a team!",
+      "major": "IT&Cognition",
+      "skills": "Javascript, many skills",
       "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "hasGroup": true,
+      "inGroup": "1576096525388"
     },
     "jevans": {
       "firstname": "Josh",

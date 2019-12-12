@@ -6,9 +6,6 @@
     "mabarth": {
       "passwordHash": "$2b$10$dY/Ji6A3hRElsBWhozWWp.qIFDybFxkQeDGOzBwHFdUfxGvajcUFi"
     },
-    "molly": {
-      "passwordHash": "$2b$10$EDNc5mYEOcZt75WdDxTsX.YNj6lA0e.HX2MPO7Yb1WYDc3yWMlh4C"
-    },
     "jinsingsangsung": {
       "passwordHash": "$2b$10$.L2htfGgnDYXAU48Q/Y/eOJX7c6s2KGJ7TlqjPY3uMcCoePRNgJAq"
     },
@@ -20,6 +17,11 @@
     },
     "iggy": {
       "passwordHash": "$2b$10$IDDnankMiJjmWiawLfVc0uNH.snBMOyzLL7U61czw4ah266.jzxYe"
+    "lee": {
+      "passwordHash": "$2b$10$8XxBq5tMX37MLbUPFS2YrukYeH7jYeBMfq008H8U6/w9e/ccWVA.O"
+    },
+    "molly": {
+      "passwordHash": "$2b$10$RB0j0jmw.TJchk7SWo0MqeOYqask48xg1/iM287PtdFCrvXY/umie"
     }
   }
 }

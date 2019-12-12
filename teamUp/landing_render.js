@@ -22,7 +22,7 @@ $(document).ready(async () => {
     $('#content').on("click", "#joinGroupButton", handleJoinGroup);
     $('#content').on("click", "#addToDoButton", handleSubmitToDo);
     $('#content').on("click", ".deleteToDoButton", handleDeleteToDo);
-    
+    $('#content').on("click", "#doneEditingOwnCard", handleDoneEditOwnCard);
 
     //$('#content').on("click", "#editGroup", handleEditGroup);
 
@@ -249,11 +249,6 @@ function handleRenderSignUp(event) {
 
 }
 
-
-async function handleCreate(data){
-    
-}
-
 async function handleSignup(event) {
     event.preventDefault();
 
@@ -262,7 +257,7 @@ async function handleSignup(event) {
         acc[x.name] = x.value;
         return acc;
     }, {});
-    let $message = $('#message');
+    // let $message = $('#message');
     // console.log(formData);
     $.ajax({
         url: 'http://localhost:3000/account/create',
@@ -273,8 +268,7 @@ async function handleSignup(event) {
         // },
     }).then(async function() {
         await logInRequest(data)
-        console.log( localStorage.getItem('jwt'));
-        await accountDataCreate(data);
+        await userDataCreate(data);
         
     }
     ).catch((err)=>console.log(err));
@@ -299,9 +293,49 @@ async function handleSignup(event) {
 
 }
 
-async function accountDataCreate(data) {
+async function userDataUpdate(data){
+    await axios
+        .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/year`, {
+            data: data.year            
+        },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
+        )
+        .then(res => console.log(res))
+
+
+    await axios
+        .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/bio`, {
+            data: data.bio,
+                '': data.major,
+                'skills': data.skills,
+        },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
+        )
+        .then(res => console.log(res))
+
+
+    await axios
+        .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/major`, {
+            data: 
+                data.major,            
+        },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
+        )
+        .then(res => console.log(res))
+
+
+    await axios
+        .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/skills`, {
+            data:  data.skills,      
+        },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
+        )
+        .then(res => console.log(res))
+}
+
+async function userDataCreate(data) {
     let $message = $('#message');
-    axios
+    await axios
         .post(`http://localhost:3000/private/users/${data.name.toLowerCase().split('.')}`, {
             data: {
                 'firstname': data.firstName,
@@ -317,7 +351,7 @@ async function accountDataCreate(data) {
                 'inGroup': ""
             }
         },
-            { headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` } },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
         )
         .then(res => console.log(res))
         .catch(err => {
@@ -325,6 +359,14 @@ async function accountDataCreate(data) {
             $message.html('<span class="has-text-danger">Something went wrong when store the info.</span>');
         }
         );
+    await axios
+        .post(`http://localhost:3000/user/todos/${Date.now()}`, {
+            data: { 
+                "toDo": "Proposal due October 12th"
+            }    
+        },
+            { headers: { Authorization: `Bearer ${getToken()}` } },
+        )
 }
 
 // render wall of comments
@@ -614,18 +656,15 @@ async function renderUserPage() {
     <div class="container">
     <p class="text">Team up with someone today!</p>
         <div class="row" id="userPageBody">
-               
             <div class= "col" >
                 <div class = "card"  style="width: 40rem; margin-top:1rem">
-                    
                         <div id="myDIV" class="header">
                             <h2>My To Do List</h2>
                             <br>
                             <form id="toDo-form">
                             <input type="text" name="toDo" id="myInput" placeholder="To do...">
                             <button type="button" id="addToDoButton">Add</button>
-                            </form>
-                        
+                            </form>  
                 </div>
 
                 <ul class="list-group list-group-flush" id="toDoList">
@@ -674,12 +713,19 @@ async function renderUserPage() {
     //reach row puts three students
     // insert 3 into each time `<div class="row"></div>`
 }
-
+function avatarIcoByGender(gender){
+    if(gender==="Female"){
+        return "icon/avatar-f.png"
+    }
+    else {
+        return "icon/avatar-m.png"
+    }
+}
 function renderOwnStudentCard(student) {
     return `<div class="col" id="ownCard">
     <div class="card" style="width: 20rem; margin-top:1rem">
         <div class="card-body">
-        <h5 class="card-title lead"> <img class="mr-3 rounded resizeImg" src="icon/avatar.png" alt="Avatar"> My Profile </h5>
+        <h5 class="card-title lead"> <img class="mr-3 rounded resizeImg" src=${avatarIcoByGender(student.gender)} alt="Avatar"> My Profile </h5>
         <p class="card-text" id = "ownBio">${student.bio}</p>
         </div>
         <ul class="list-group list-group-flush">
@@ -709,6 +755,38 @@ async function handleEditOwnCard(event) {
     }
 }
 
+
+async function handleDoneEditOwnCard(event) {
+    event.preventDefault();
+    let form = event.currentTarget.closest("#ownCard");
+    let data = $(form).serializeArray().reduce((acc, x) => {
+        acc[x.name] = x.value;
+        return acc;
+    }, {});
+    
+    try {
+        await userDataUpdate(data) 
+        $("#ownCard").remove();
+        handleRenderUserPage(event);
+    } catch (error) {
+        console.log(error);
+        result = error;
+    }
+
+
+    
+    // $("#ownCard").remove();
+    // try {
+    //     const result = await getUserData(localStorage.getItem("name"));
+    //     console.log(result);
+    //     $('#userPageBody').prepend(renderOwnEditStudentCard(result));
+    // } catch (error) {
+    //     console.log(error);
+    //     result = error;
+    // }
+    // handleRenderUserPage(event);
+}
+
 async function handleCancelEditOwnCard(event) {
     $("#ownCard").remove();
     handleRenderUserPage(event);
@@ -721,7 +799,7 @@ function renderOwnEditStudentCard(student) {
     return `<form class="col-sm" id="ownCard">
     <div class="card" style="width: 20rem;">
         <div class="card-body">
-        <h5 class="card-title lead"><img class="mr-3 rounded resizeImg" src="icon/avatar.png" alt="Avatar"> My Profile </h5>
+        <h5 class="card-title lead"><img class="mr-3 rounded resizeImg" src=${avatarIcoByGender(student.gender)} alt="Avatar"> My Profile </h5>
         </div>
         <ul class="list-group list-group-flush">        
             <li class="list-group-item">Gender: ${student.gender}</li>
