@@ -20,9 +20,12 @@ $(document).ready(async () => {
     $('#content').on("click", "#createGroupButton", handleSubmitGroup);
     $('#content').on("click", "#deleteGroup", handleDeleteGroup);
     $('#content').on("click", "#joinGroupButton", handleJoinGroup);
+    $('#content').on("click", "#leaveGroupButton", handleLeaveGroup);
     $('#content').on("click", "#addToDoButton", handleSubmitToDo);
     $('#content').on("click", ".deleteToDoButton", handleDeleteToDo);
     $('#content').on("click", "#doneEditingOwnCard", handleDoneEditOwnCard);
+
+
 
     //$('#content').on("click", "#editGroup", handleEditGroup);
 
@@ -270,7 +273,7 @@ async function handleSignup(event) {
     }).then(async function () {
         await logInRequest(data)
         await userDataCreate(data);
-        
+
     }
     ).catch((err) => console.log(err));
 
@@ -294,10 +297,10 @@ async function handleSignup(event) {
 
 }
 
-async function userDataUpdate(data){
+async function userDataUpdate(data) {
     await axios
         .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/year`, {
-            data: data.year            
+            data: data.year
         },
             { headers: { Authorization: `Bearer ${getToken()}` } },
         )
@@ -307,8 +310,8 @@ async function userDataUpdate(data){
     await axios
         .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/bio`, {
             data: data.bio,
-                '': data.major,
-                'skills': data.skills,
+            '': data.major,
+            'skills': data.skills,
         },
             { headers: { Authorization: `Bearer ${getToken()}` } },
         )
@@ -317,8 +320,8 @@ async function userDataUpdate(data){
 
     await axios
         .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/major`, {
-            data: 
-                data.major,            
+            data:
+                data.major,
         },
             { headers: { Authorization: `Bearer ${getToken()}` } },
         )
@@ -327,7 +330,7 @@ async function userDataUpdate(data){
 
     await axios
         .post(`http://localhost:3000/private/users/${localStorage.getItem('name')}/skills`, {
-            data:  data.skills,      
+            data: data.skills,
         },
             { headers: { Authorization: `Bearer ${getToken()}` } },
         )
@@ -363,9 +366,9 @@ async function userDataCreate(data) {
         );
     await axios
         .post(`http://localhost:3000/user/todos/${Date.now()}`, {
-            data: { 
+            data: {
                 "toDo": "Proposal due October 12th"
-            }    
+            }
         },
             { headers: { Authorization: `Bearer ${getToken()}` } },
         )
@@ -603,10 +606,16 @@ function renderGroupPage(groups) {
 function renderGroupCard(group, i) {
     let groupMembers = "";
     let buttons = "";
+    let joined = false;
+
+
     //console.log("Aufruf der RenderGroupCardMethode");
     //console.log(group);
     for (let i = 0; i < group.groupMembers.length; i++) {
         groupMembers = groupMembers.concat(`<li class="list-group-item">${group.groupMembers[i]}</li>`);
+        if (group.groupMembers[i] === localStorage.getItem("name")) {
+            joined = true;
+        }
     }
     if (group.groupOwner === localStorage.getItem("name")) {
         buttons = `<div class="btn-group float-right" role="group" aria-label="Second group">
@@ -617,11 +626,16 @@ function renderGroupCard(group, i) {
                     </div>
                     `
     } else {
-        buttons = `<button type="button" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>`
+        if (joined) {
+            buttons = `<button type="button" class="btn btn-danger btn-lg btn-block" id="leaveGroupButton">Leave</button>`
+        } else {
+            buttons = `<button type="button" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>`
+        }
     }
 
 
-    return `<div class="card" id="groupCard" style="width: 18rem;" id="${i}">
+
+    return `<div class="card groupCard" style="width: 18rem;" id="${i}">
                 <div class="card-body">
                     <h1 class="card-title bold">${group.groupName}</h1>
                     <p class="card-text" style="text-align:center;">Max Capacity: ${group.groupCapacity}</p>
@@ -715,8 +729,8 @@ async function renderUserPage() {
     //reach row puts three students
     // insert 3 into each time `<div class="row"></div>`
 }
-function avatarIcoByGender(gender){
-    if(gender==="Female"){
+function avatarIcoByGender(gender) {
+    if (gender === "Female") {
         return "icon/avatar-f.png"
     }
     else {
@@ -765,9 +779,9 @@ async function handleDoneEditOwnCard(event) {
         acc[x.name] = x.value;
         return acc;
     }, {});
-    
+
     try {
-        await userDataUpdate(data) 
+        await userDataUpdate(data)
         $("#ownCard").remove();
         handleRenderUserPage(event);
     } catch (error) {
@@ -776,7 +790,7 @@ async function handleDoneEditOwnCard(event) {
     }
 
 
-    
+
     // $("#ownCard").remove();
     // try {
     //     const result = await getUserData(localStorage.getItem("name"));
@@ -1196,7 +1210,7 @@ async function handleJoinGroup(event) {
     let studentGroupData = await hasGroup();
 
     if (studentGroupData.data.result.hasGroup === false) {
-        let groupCard = event.currentTarget.closest(".card");
+        let groupCard = event.currentTarget.closest(".groupCard");
         let groupID = $(groupCard).attr('id');
 
         const groupDetails = await getGroup(groupID);
@@ -1207,16 +1221,13 @@ async function handleJoinGroup(event) {
             const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
             updateStudentsGroupInfo("hasGroup", true);
             updateStudentsGroupInfo("inGroup", groupID);
+            // rerender whole page
 
-            // <button type="button" class="btn btn-primary btn-lg btn-block" id="joinGroupButton">Join</button>
-            // rerender whole groupPage for now, maybe single call + replacewith 
             return handleRenderGroupPage();
         } else {
             $("#errorMessage").empty();
             $("#errorMessage").append(`<span class="text-danger">This group has already reached its maximum capacity.</span>`)
         }
-
-
     } else {
         if (studentGroupData.data.result.ownsGroup === true) {
             $("#errorMessage").empty();
@@ -1225,8 +1236,6 @@ async function handleJoinGroup(event) {
             $("#errorMessage").empty();
             $("#errorMessage").append(`<span class="text-danger">You are already member of group ${studentGroupData.data.result.inGroup}.</span>`)
         }
-
-
     }
 }
 
@@ -1354,10 +1363,60 @@ async function getGroup(id) {
         url: `http://localhost:3000/private/groups/${id}`,
     });
     console.log("Result from getGroup Call");
-    console.log(result);
+    //console.log(result);
     //console.log(result.data.result);
     return result;
 };
+
+
+
+
+async function handleLeaveGroup(event) {
+    event.preventDefault();
+    let groupCard = event.currentTarget.closest(".groupCard");
+    let groupID = $(groupCard).attr('id');
+
+    // get old groupDetails
+    let groupDetails = await getGroup(groupID);
+    // get groupMembers
+    let list = groupDetails.data.result.groupMembers;
+    // remove user
+    let newList = removeKeyNonDestructive(list, list.indexOf(localStorage.getItem("name")));
+
+    let members = [];
+    for(let i = 0; i<Object.keys(list).length;i++){
+        if(typeof newList[i] !== 'undefined'){
+        members.push(newList[i]);
+        }
+    }
+    // update group with new userlist
+    const postGroupResult = await deleteGroupMember(members, groupID);
+
+    updateStudentsGroupInfo("hasGroup", false);
+    updateStudentsGroupInfo("inGroup", "");
+    // rerender whole page
+    return handleRenderGroupPage();
+}
+
+function removeKeyNonDestructive(list, key) {
+    const { [key.toString()]: del, ...rest} = list;
+    return rest;
+ }
+
+
+async function deleteGroupMember(data, id) {
+    const result = await axios({
+        method: 'post',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/private/groups/${id}/groupMembers`,
+        data: {
+            data: data,
+        }
+    });
+    //console.log("Result from updatingGroupMembers Call");
+    //console.log(result);
+    return result;
+}
 
 
 /* This is used for backend exploration
