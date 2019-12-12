@@ -1,6 +1,7 @@
 {
   "users": {
     "bolin": {
+      "username": "bolin",
       "firstname": "Bolin",
       "lastname": "Zhu",
       "email": "bolin.zhu123@gmail.com",
@@ -14,6 +15,7 @@
       "inGroup": "1576112944730"
     },
     "mabarth": {
+      "username": "mabarth",
       "firstname": "Maximilian",
       "lastname": "Barth",
       "email": "mabarth@live.unc.edu",
@@ -22,14 +24,12 @@
       "bio": "I like pizza.",
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
-      "ownsGroup": [
-        false,
-        true
-      ],
-      "hasGroup": false,
-      "inGroup": ""
+      "ownsGroup": false,
+      "hasGroup": true,
+      "inGroup": "1576031197616"
     },
     "molly": {
+      "username": "molly",
       "firstname": "Mengyu",
       "lastname": "Zhong",
       "email": "mengyu_zhong@outlook.com",
@@ -43,6 +43,7 @@
       "inGroup": ""
     },
     "jevans": {
+      "username": "jevans",
       "firstname": "Josh",
       "lastname": "Evans",
       "email": "evansjosh@gmail.com",
@@ -56,6 +57,7 @@
       "inGroup": ""
     },
     "yyzang": {
+      "username": "yyzang",
       "firstname": "Yingyu",
       "lastname": "Zang",
       "email": "yyzang@ad.unc.edu",
@@ -67,6 +69,34 @@
       "ownsGroup": true,
       "hasGroup": true,
       "inGroup": "1576105020516"
+    },
+    "abach": {
+      "username": "abach",
+      "firstname": "Amadeus",
+      "lastname": "Bach",
+      "email": "dummy@web.de",
+      "gender": "Male",
+      "year": "Grad School",
+      "bio": "I am an exchange scholar from University of Mannheim, Germany and I will spend the whole academic year at the Wharton School of the University of Pennsylvania",
+      "major": "Accounting",
+      "skills": "Financial Accounting, Research, Financial Modelling, EU Law",
+      "ownsGroup": false,
+      "hasGroup": false,
+      "inGroup": ""
+    },
+    "ralle": {
+      "username": "ralle",
+      "firstname": "Ralf",
+      "lastname": "Guenthner",
+      "email": "dummy2@web.de",
+      "gender": "Male",
+      "year": "Senior",
+      "bio": "Law is my life",
+      "major": "Law",
+      "skills": "Business Law, EU Law, Management",
+      "ownsGroup": false,
+      "hasGroup": true,
+      "inGroup": "1576031197616"
     }
   },
   "groups": {
@@ -75,7 +105,9 @@
       "groupMembers": [
         "Felix",
         "test",
-        "al"
+        "al",
+        "test",
+        "test2"
       ],
       "groupOwner": "al",
       "groupCapacity": "5"
@@ -84,7 +116,9 @@
       "groupName": "OtherGroup",
       "groupMembers": [
         "Felix",
-        "untest"
+        "untest",
+        "ralle",
+        "mabarth"
       ],
       "groupOwner": "Felix",
       "groupCapacity": "5"
