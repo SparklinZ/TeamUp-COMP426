@@ -81,7 +81,7 @@ function renderLoginPage() {
         <p>Username</p>
         <input type="text" name="name" placeholder="Enter Username" required autofocus>
         <p>Password</p>
-        <input type="password" name="pass" placeholder="Enter Password" required>
+        <input type="password" name="pass" id="loginB" placeholder="Enter Password required">
 
         <div class="field">
             <div class="control">
