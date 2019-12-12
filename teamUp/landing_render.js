@@ -123,7 +123,7 @@ function handleRenderLogin(event) {
 async function logInRequest(data) {
     const $message = $('#message');
     $message.html('');
-    $.ajax({
+    await $.ajax({
         url: 'http://localhost:3000/account/login',
         type: 'POST',
         data,
@@ -141,9 +141,11 @@ async function logInRequest(data) {
 
         // TO DO: put replace/ rerender call here (e.g. wall page with log out user button)
         // window.location.replace("http://localhost:3000/index.html")
-    }).catch(() => {
+        // console.log(res.jwt);
+    }).catch(() => {R
         $message.html('<span class="has-text-danger">Something went wrong and you were not logged in. Check your email and password and your internet connection.</span>');
     });
+    return 
 }
 
 // render sign up page
@@ -244,45 +246,52 @@ function handleRenderSignUp(event) {
 }
 
 
+async function handleCreate(data){
+    
+}
+
 async function handleSignup(event) {
     event.preventDefault();
-    let form = event.currentTarget.closest("#signupForm");
 
+    let form = event.currentTarget.closest("#signupForm");
     let data = $(form).serializeArray().reduce((acc, x) => {
         acc[x.name] = x.value;
         return acc;
     }, {});
     let $message = $('#message');
     // console.log(formData);
-    // $.ajax({
-    //     url: 'http://localhost:3000/account/create',
-    //     type: 'POST',
-    //     data,
-    //     // xhrFields: {
-    //     //     withCredentials: true,
-    //     // },
-    // }).then((res) => {
-    //     logInRequest(data);
-    //     accountDataCreate(data);
-    // }).catch((res) => {
-    //     $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
-    // });
-
-    try {
-        await $.ajax({
-            url: 'http://localhost:3000/account/create',
-            type: 'POST',
-            data,
-            // xhrFields: {
-            //     withCredentials: true,
-            // },
-        });
-        await logInRequest(data);
+    $.ajax({
+        url: 'http://localhost:3000/account/create',
+        type: 'POST',
+        data,
+        // xhrFields: {
+        //     withCredentials: true,
+        // },
+    }).then(async function() {
+        await logInRequest(data)
+        console.log( localStorage.getItem('jwt'));
         await accountDataCreate(data);
-    } catch (error) {
-        console.log(error)
-        $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
+        
     }
+    ).catch((err)=>console.log(err));
+        
+
+
+    // try {
+    //     await $.ajax({
+    //         url: 'http://localhost:3000/account/create',
+    //         type: 'POST',
+    //         data,
+    //         // xhrFields: {
+    //         //     withCredentials: true,
+    //         // },
+    //     });
+       
+    // } catch (error) {
+    //     console.log(error)
+    //     $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
+    // }
+    
 
 }
 
@@ -311,7 +320,7 @@ async function accountDataCreate(data) {
             console.log(err);
             $message.html('<span class="has-text-danger">Something went wrong when store the info.</span>');
         }
-        ).then();
+        );
 }
 
 // render wall of comments
