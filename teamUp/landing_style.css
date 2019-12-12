@@ -275,7 +275,7 @@ body {
    padding: 15px;
    margin: 0 auto;
    border-radius: 0.3em;
-   background-color: #f2f2f2;
+   background-color: #7BAFD4;
 }
 
 *[role="form"] h2 { 
@@ -445,5 +445,14 @@ body {
     
   }
 
-
-  
+  #groupCard {
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    width: 70%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 8px;
+    background: #fff;
+}
