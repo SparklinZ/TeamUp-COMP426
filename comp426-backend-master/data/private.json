@@ -21,7 +21,7 @@
       "email": "mabarth@live.unc.edu",
       "gender": "Male",
       "year": "Junior",
-      "bio": "I like pizza.",
+      "bio": "I like pizza, yummy.",
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
       "ownsGroup": false,
@@ -104,8 +104,8 @@
       "groupName": "Hello World",
       "groupMembers": [
         "bolin",
-        "mabarth",
-        "molly"
+        "molly",
+        "mabarth"
       ],
       "groupOwner": "bolin",
       "groupCapacity": "3"
