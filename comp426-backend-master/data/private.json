@@ -8,7 +8,10 @@
       "year": "Junior",
       "bio": "I am interested in improving decision making process using various IT-driven tools, software and techniques. ",
       "major": "Business Analytics",
-      "skills": "Python and machine learning. "
+      "skills": "Python and machine learning. ",
+      "ownsGroup": false,
+      "hasGroup": false,
+      "inGroup": ""
     },
     "mabarth": {
       "firstname": "Maximilian",
@@ -19,9 +22,9 @@
       "bio": "I like pizza.",
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
-      "ownsGroup": false,
+      "ownsGroup": true,
       "hasGroup": true,
-      "inGroup": "1576031197616"
+      "inGroup": "1576112351359"
     },
     "molly": {
       "firstname": "Mengyu",
@@ -31,7 +34,10 @@
       "year": "Grad School",
       "bio": "Hi, I'm an exchange student. Need a team. ",
       "major": "IT & Cognition",
-      "skills": "Python, C++, Javascript"
+      "skills": "Python, C++, Javascript",
+      "ownsGroup": false,
+      "hasGroup": false,
+      "inGroup": ""
     },
     "jevans": {
       "firstname": "Josh",
@@ -41,7 +47,10 @@
       "year": "Junior",
       "bio": "North Carolina born and raised. I love UNC and hope to meet some like minded individuals to make real changes to our society.",
       "major": "Economics",
-      "skills": "I am really good at googling."
+      "skills": "I am really good at googling.",
+      "ownsGroup": false,
+      "hasGroup": false,
+      "inGroup": ""
     },
     "yyzang": {
       "firstname": "Yingyu",
@@ -52,9 +61,9 @@
       "bio": "can read can work cannot pass final exam on my own",
       "major": "Sociology",
       "skills": "writing/slides/coordinate",
-      "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "ownsGroup": true,
+      "hasGroup": true,
+      "inGroup": "1576105020516"
     }
   },
   "groups": {
@@ -63,30 +72,19 @@
       "groupMembers": [
         "Felix",
         "test",
-        "al",
-        "mabarth"
+        "al"
       ],
-      "groupOwner": "Felix",
+      "groupOwner": "al",
       "groupCapacity": "5"
     },
     "1576031197616": {
       "groupName": "OtherGroup",
       "groupMembers": [
         "Felix",
-        "untest",
-        "mabarth"
+        "untest"
       ],
       "groupOwner": "Felix",
       "groupCapacity": "5"
-    },
-    "1576096525388": {
-      "groupName": "HelloWorld",
-      "groupMembers": [
-        "mabarth",
-        "bolin"
-      ],
-      "groupOwner": "mabarth",
-      "groupCapacity": "4"
     },
     "1576105020516": {
       "groupName": "SociologistXCoder",
@@ -94,6 +92,14 @@
         "yyzang"
       ],
       "groupOwner": "yyzang",
+      "groupCapacity": "3"
+    },
+    "1576112351359": {
+      "groupName": "test",
+      "groupMembers": [
+        "mabarth"
+      ],
+      "groupOwner": "mabarth",
       "groupCapacity": "3"
     }
   }
