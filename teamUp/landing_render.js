@@ -81,7 +81,7 @@ function renderLoginPage() {
         <p>Username</p>
         <input type="text" name="name" placeholder="Enter Username" required autofocus>
         <p>Password</p>
-        <input type="password" name="pass" placeholder="Enter Password" required>
+        <input type="password" name="pass" id="loginB" placeholder="Enter Password required">
 
         <div class="field">
             <div class="control">
@@ -621,7 +621,7 @@ function renderGroupCard(group, i) {
     }
 
 
-    return `<div class="card" style="width: 18rem;" id="${i}">
+    return `<div class="card" id="groupCard" style="width: 18rem;" id="${i}">
                 <div class="card-body">
                     <h1 class="card-title bold">${group.groupName}</h1>
                     <p class="card-text" style="text-align:center;">Max Capacity: ${group.groupCapacity}</p>
