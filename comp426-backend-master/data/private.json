@@ -9,9 +9,9 @@
       "bio": "I am interested in improving decision making process using various IT-driven tools, software and techniques. ",
       "major": "Business Analytics",
       "skills": "Python and machine learning. ",
-      "ownsGroup": false,
-      "hasGroup": false,
-      "inGroup": ""
+      "ownsGroup": true,
+      "hasGroup": true,
+      "inGroup": "1576112944730"
     },
     "mabarth": {
       "firstname": "Maximilian",
@@ -100,6 +100,14 @@
         "mabarth"
       ],
       "groupOwner": "mabarth",
+      "groupCapacity": "3"
+    },
+    "1576112944730": {
+      "groupName": "test2",
+      "groupMembers": [
+        "bolin"
+      ],
+      "groupOwner": "bolin",
       "groupCapacity": "3"
     }
   }

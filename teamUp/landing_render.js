@@ -514,21 +514,25 @@ function renderGroupPage(groups) {
 
 
     let counter = 0;
+    let row_counter = 1000;
     for (var i in groups) {
         if (counter === 0) {
-            $("#groups").append(`<div class="row">${renderGroupCard(groups[i], i)}</div>`);
+            $("#groups").append(`<div class="row" id="${row_counter}">${renderGroupCard(groups[i], i)}</div>`);
             counter++;
             //console.log(0);
         }
         else {
             if (counter === 1) {
-                $(".row").append(renderGroupCard(groups[i], i));
+                let key = "#" + row_counter;
+                $(key).append(renderGroupCard(groups[i], i));
                 counter++;
                 //console.log(1);
             } else {
                 if (counter === 2) {
-                    $(".row").append(renderGroupCard(groups[i], i));
+                    let key = "#" + row_counter;
+                    $(key).append(renderGroupCard(groups[i], i));
                     counter = 0;
+                    row_counter = row_counter + 1;
                     //console.log(2);
                 }
             }
