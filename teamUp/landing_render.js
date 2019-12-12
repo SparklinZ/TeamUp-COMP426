@@ -648,7 +648,7 @@ function renderGroupCard(group, i) {
 
 
 
-    return `<div class="card groupCard" style="width: 18rem;" id="${i}">
+    return `<div class="card groupCard" id="groupCard" style="width: 18rem;" id="${i}">
                 <div class="card-body">
                     <h1 class="card-title bold">${group.groupName}</h1>
                     <p class="card-text" style="text-align:center;">Max Capacity: ${group.groupCapacity}</p>
