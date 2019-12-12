@@ -21,12 +21,12 @@
       "email": "mabarth@live.unc.edu",
       "gender": "Male",
       "year": "Junior",
-      "bio": "I like pizza, yummy.",
+      "bio": "I like pizza, because it's yummy. But I also like burritos.",
       "major": "Computer Science",
       "skills": "Java, Cloud Computing, Integrations, SAP",
       "ownsGroup": false,
-      "hasGroup": true,
-      "inGroup": "1576127907144"
+      "hasGroup": false,
+      "inGroup": ""
     },
     "molly": {
       "username": "molly",
@@ -104,11 +104,28 @@
       "groupName": "Hello World",
       "groupMembers": [
         "bolin",
-        "molly",
-        "mabarth"
+        "molly"
       ],
       "groupOwner": "bolin",
       "groupCapacity": "3"
+    },
+    "1576127907146": {
+      "groupName": "MWP4life",
+      "groupMembers": [
+        "ralle",
+        "abach"
+      ],
+      "groupOwner": "ralle",
+      "groupCapacity": "4"
+    },
+    "1576127907147": {
+      "groupName": "CsGetDegrees",
+      "groupMembers": [
+        "yyzang",
+        "jevans"
+      ],
+      "groupOwner": "yyzang",
+      "groupCapacity": "4"
     }
   }
 }

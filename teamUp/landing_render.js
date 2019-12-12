@@ -554,9 +554,16 @@ function renderGroupPage(groups) {
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" id="createGroupButton">Create Group</button>
-                </div>       
+                <div class="col-4 form-group">
+                    <button type="button" class="btn btn-primary btn-sm btn-block w-100" id="createGroupButton">Create Group</button>
+                </div>
+                <div class="col-2 form-group">
+                <i class="fas fa-search fa-lg pull-right mt-2" aria-hidden="true"></i>
+                </div>
+                <div class="col-6 form-group float-right">
+                    <input class="form-control" type="search" placeholder="Find your group" aria-label="Search" id="searchForm">
+
+                </div>
             </div>
             <div class="field">
                 <div class="control">
@@ -565,7 +572,13 @@ function renderGroupPage(groups) {
             </div>
         </form>
 
+        
 
+        <!-- Search form -->
+
+            <form class="form-inline" role="form">
+                
+            </form>
 
         <!-- group cards will be inserted below dynamically -->
         <div id="groups"> 
@@ -1432,3 +1445,20 @@ async function getGroupsDummy() {
     //console.log(result.data.result);
     return result.data.result;
 };*/
+
+/*
+function autocomplete(text, array){
+    searchForm
+}
+
+
+async function searchHandler(){
+    document.getElementById('searchForm').addEventListener('input', search);
+
+
+}
+
+async function search(event){
+    let text = event.target.value;
+    document.getElementById('');
+}*/
