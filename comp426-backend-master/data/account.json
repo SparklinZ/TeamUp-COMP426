@@ -23,6 +23,12 @@
     },
     "molly": {
       "passwordHash": "$2b$10$RB0j0jmw.TJchk7SWo0MqeOYqask48xg1/iM287PtdFCrvXY/umie"
+    },
+      "abach": {
+      "passwordHash": "$2b$10$mIpiQRzhl6zqnRYtMcniw.5VbTDrMYilOuZ9Iiz4ItXv/GeSy4rFW"
+    },
+    "ralle": {
+      "passwordHash": "$2b$10$HKU1g1FCMHl.9uMb21vI9esf6eovDal1SP0FAgYb31PnjPV//F.RS"
     }
   }
 }

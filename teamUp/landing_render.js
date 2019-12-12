@@ -146,10 +146,11 @@ async function logInRequest(data) {
         // TO DO: put replace/ rerender call here (e.g. wall page with log out user button)
         // window.location.replace("http://localhost:3000/index.html")
         // console.log(res.jwt);
-    }).catch(() => {R
+    }).catch(() => {
+        R
         $message.html('<span class="has-text-danger">Something went wrong and you were not logged in. Check your email and password and your internet connection.</span>');
     });
-    return 
+    return
 }
 
 // render sign up page
@@ -266,13 +267,13 @@ async function handleSignup(event) {
         // xhrFields: {
         //     withCredentials: true,
         // },
-    }).then(async function() {
+    }).then(async function () {
         await logInRequest(data)
         await userDataCreate(data);
         
     }
-    ).catch((err)=>console.log(err));
-        
+    ).catch((err) => console.log(err));
+
 
 
     // try {
@@ -284,12 +285,12 @@ async function handleSignup(event) {
     //         //     withCredentials: true,
     //         // },
     //     });
-       
+
     // } catch (error) {
     //     console.log(error)
     //     $message.html('<span class="has-text-danger">Something went wrong and you were not signed up.</span>');
     // }
-    
+
 
 }
 
@@ -338,6 +339,7 @@ async function userDataCreate(data) {
     await axios
         .post(`http://localhost:3000/private/users/${data.name.toLowerCase().split('.')}`, {
             data: {
+                'username': data.name,
                 'firstname': data.firstName,
                 'lastname': data.lastName,
                 'email': data.email,
@@ -1191,22 +1193,29 @@ async function updateGroupMembers(data, id) {
 
 async function handleJoinGroup(event) {
     event.preventDefault();
-    // getGroupID
     let studentGroupData = await hasGroup();
-    //console.log("In JoinHandler")
-    //console.log(studentGroupData);
 
     if (studentGroupData.data.result.hasGroup === false) {
         let groupCard = event.currentTarget.closest(".card");
         let groupID = $(groupCard).attr('id');
-        // call update GroupMembers function
-        const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
 
-        updateStudentsGroupInfo("hasGroup", true);
-        updateStudentsGroupInfo("inGroup", groupID);
+        const groupDetails = await getGroup(groupID);
 
-        // rerender whole groupPage for now, maybe single call + replacewith 
-        return handleRenderGroupPage();
+        // check whether group has already reached its maximum capacity of members
+        if (groupDetails.data.result.groupMembers.length < parseInt(groupDetails.data.result.groupCapacity)) {
+            // call update GroupMembers function
+            const postGroupResult = await updateGroupMembers(localStorage.getItem("name"), groupID);
+            updateStudentsGroupInfo("hasGroup", true);
+            updateStudentsGroupInfo("inGroup", groupID);
+
+            // rerender whole groupPage for now, maybe single call + replacewith 
+            return handleRenderGroupPage();
+        } else {
+            $("#errorMessage").empty();
+            $("#errorMessage").append(`<span class="text-danger">This group has already reached its maximum capacity.</span>`)
+        }
+
+
     } else {
         if (studentGroupData.data.result.ownsGroup === true) {
             $("#errorMessage").empty();
@@ -1332,5 +1341,19 @@ async function deleteToDo(id) {
         url: `http://localhost:3000/user/todos/${id}`,
     });
     console.log(result);
+    return result;
+};
+
+
+
+async function getGroup(id) {
+    const result = await axios({
+        method: 'get',
+        headers: { Authorization: `Bearer ${getToken()}` },
+        url: `http://localhost:3000/private/groups/${id}`,
+    });
+    console.log("Result from getGroup Call");
+    console.log(result);
+    //console.log(result.data.result);
     return result;
 };
